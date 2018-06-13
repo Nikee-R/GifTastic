@@ -3,23 +3,33 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Giphy API</title>
+  <title>Giftastic | App</title>
+  <!-- Links -->
+  <link rel='stylesheet' type='text/css' href='assets/css/style.css'>
 </head>
 
 <body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    // Example queryURL for Giphy API
-    var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC";
+    <!-- Button -->
+    <div id='buttons'>
 
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(function(response) {
-      console.log(response);
-    });
-  </script>
+    </div>
+    <!-- Search Form to find gifs on Giphy. -->
+    <form>
+      <label for='search-input'>Search</label>
+      <input type='text' id='search-input'>
+      <br>
+      <input id='additonal' type='submit' value='Submit'>
+    </form>
+    <!-- Where the gifs will be displayed. -->
+    <div id='gifs'>
+
+    </div>
 
 </body>
 
+<footer>
+  <!-- Links for Javascript. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="assets/javascript/app.js"></script>
+</footer>
 </html>
