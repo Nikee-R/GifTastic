@@ -9,22 +9,39 @@
 </head>
 
 <body>
-    <!-- Button -->
-    <div id='buttons'>
+  <div class='container'>
+    <div class='jumbotron'>
+      <h1>GifTastic App</h1>
+      <!-- Buttons -->
+      <div class='container'>
+        <div class='row'>
+          <div class='col-sm-2'>
+            <div id='buttons'>
 
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Search Form to find gifs on Giphy. -->
+      <form>
+        <label for='search-input'>Search</label>
+        <input type='text' id='search-input'>
+        <br>
+        <br>
+        <input id='additonal' type='submit' value='Submit'>
+      </form>
+      <!-- Where the gifs will be displayed. -->
+      <div class='container'>
+        <div class='row'>
+          <div class='col-sm-2'>
+            <div id='gifs'>
+
+            </div>
+          </div>
+          </div>
+        </div>
     </div>
-    <!-- Search Form to find gifs on Giphy. -->
-    <form>
-      <label for='search-input'>Search</label>
-      <input type='text' id='search-input'>
-      <br>
-      <input id='additonal' type='submit' value='Submit'>
-    </form>
-    <!-- Where the gifs will be displayed. -->
-    <div id='gifs'>
-
-    </div>
-
+</div>
 </body>
 
 <footer>
