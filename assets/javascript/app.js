@@ -74,7 +74,7 @@ $(document).ready(function() {
         });
     }
 
-    $('.btn btn-secondary my-2 my-sm-0').click(function(event) {
+    $('.submit').click(function(event) {
         event.preventDefault();
         var name = $('#topics')
         .val()
@@ -102,8 +102,8 @@ function changeState() {
 }
 
 // Adds a click event.
-$(document).on('click', '.buttons', '.btn btn-secondary my-2 my-sm-0', displayGifs);
-$(document).on('click', '.btn btn-secondary my-2 my-sm-0', displayGifs);
+$(document).on('click', '.buttons', displayGifs);
+$(document).on('click', '.submit', displayGifs);
 $(document).on('click', ".giphy", changeState);
 
 // Calls the renderButtons function to display initial buttons.
