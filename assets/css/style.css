@@ -2,6 +2,12 @@ body {
     background-color: pink;
 }
 
+h1 {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
 .imgBox {
     padding: 30px;
 }
@@ -11,6 +17,6 @@ img {
     height: auto;
 }
 
-.buttons {
-    margin: 10px;
+.container {
+    margin: 20px;
 }
