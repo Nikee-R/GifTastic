@@ -1,105 +1,86 @@
-// Link to API.
-var queryURL = 'https://api.giphy.com/v1/gifs/trending?api_key=RcsY3z3u9rM2wVu92IGscG0ozY3GDZJl';
+// Initial array of gifs
+var animals = ["Otters", "Kitties", "Bunnies"];
 
-// Initial array of movies
-var gifs = ["Otters", "Kittens", "Bunny"];
+    // Displays gifs on page.
+    function displayGifs() {
 
-// Displays gifs on page.
-function displayGifs() {
+        var gif = $(this).attr("#gif");
+        console.log('Here are the gifs for ' + gif);
 
-  var gif = $(this).attr("data-name");
-  var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+        // Link to API.
+        var queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + gif + '&api_key=RcsY3z3u9rM2wVu92IGscG0ozY3GDZJl';
 
-  // AJAX call.
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  }).then(function(response) {
+        // AJAX call.
+        $.ajax({
+        url: queryURL,
+        method: "GET"
+        }).then(function(response) {
+            console.log('Retrieving gifs for' + gif);
 
-    // Creating a div to hold the movie
-    var movieDiv = $("<div class='movie'>");
+            // Creating a div to hold the gifs.
+            var data = response.data;
+            $('#gifs').empty();
 
-    // Storing the rating data
-    var rating = response.Rated;
+            var row = $("<div class='row'>");
 
-    // Creating an element to have the rating displayed
-    var pOne = $("<p>").text("Rating: " + rating);
+            for (var dataIndex = 0; dataIndex < data.length; dataIndex++) {
 
-    // Displaying the rating
-    movieDiv.append(pOne);
+                if (dataIndex[i].rating !== 'r' && dataIndex[i].rating !== 'pg-13') {
+                    var giphy = dataIndex[i].images.fixed_height.url;
+                    var still = dataIndex[i].images.fixed_height_still.url;
 
-    // Storing the release year
-    var released = response.Released;
+                    var giphyImg = $("<img class= 'giphy'>");
+                    giphyImg.data('still', still);
+                    giphyImg.data('animate', giphy);
+                    giphyImg.data('state', 'animate');
+                    giphyImg.attr('src', giphy);
+                    var imgBox = $("<div class= 'imgBox col-sm-2'>");
+                    imgBox.append(giphyImg);
+                    if (i % 2 == 0) {
+                        row = $("<div class= 'row'>");
+                    }
+                    row.append(imgBox);
+                    $('#gifs').append(row);
+                }
 
-    // Creating an element to hold the release year
-    var pTwo = $("<p>").text("Released: " + released);
+            }
+            
+            $('html, body').animate({
+                scrollTop: $("#gifs").offset().top
+            }, 1000);
 
-    // Displaying the release year
-    movieDiv.append(pTwo);
+            console.log(response);
+        });
+    }
 
-    // Storing the plot
-    var plot = response.Plot;
+        // Adds buttons.
+        function renderButtons() {
+            console.log('Rendering buttons.');
+    
+            $('#buttons').empty();
+            for (var animalsIndex = 0; animalsIndex < animals.length; animalsIndex++ ) {
+                
+                // Adds new buttons for each item in array.
+                var button = $('<button>');
+                button.addClass('gif');
+                button.data('name', animals[animalsIndex]);
+    
+                // Adds a button to the button area.
+                $('#buttons').append(button);
+            }
+            
+            console.log('Rendering buttons.')
+        }
 
-    // Creating an element to hold the plot
-    var pThree = $("<p>").text("Plot: " + plot);
-
-    // Appending the plot
-    movieDiv.append(pThree);
-
-    // Retrieving the URL for the image
-    var imgURL = response.Poster;
-
-    // Creating an element to hold the image
-    var image = $("<img>").attr("src", imgURL);
-
-    // Appending the image
-    movieDiv.append(image);
-
-    // Putting the entire movie above the previous movies
-    $("#movies-view").prepend(movieDiv);
-  });
-
+function changeState() {
+    console.log('Changing state.')
+    var state = $(this).data('state');
+    if (state == 'animate') {
+        $(this).attr('src', $(this).data('still'));
+        $(this).data('state', 'still');
+    } else {
+        $(this).attr('src', $(this).data('animate'));
+        $(this).data('state', 'animate');
+    }
 }
 
-// Function for displaying movie data
-function renderButtons() {
-
-  // Deleting the movies prior to adding new movies
-  // (this is necessary otherwise you will have repeat buttons)
-  $("#buttons-view").empty();
-
-  // Looping through the array of movies
-  for (var i = 0; i < movies.length; i++) {
-
-    // Then dynamicaly generating buttons for each movie in the array
-    // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
-    var a = $("<button>");
-    // Adding a class of movie-btn to our button
-    a.addClass("movie-btn");
-    // Adding a data-attribute
-    a.attr("data-name", movies[i]);
-    // Providing the initial button text
-    a.text(movies[i]);
-    // Adding the button to the buttons-view div
-    $("#buttons-view").append(a);
-  }
-}
-
-// This function handles events where a movie button is clicked
-$("#add-movie").on("click", function(event) {
-  event.preventDefault();
-  // This line grabs the input from the textbox
-  var movie = $("#movie-input").val().trim();
-
-  // Adding movie from the textbox to our array
-  movies.push(movie);
-
-  // Calling renderButtons which handles the processing of our movie array
-  renderButtons();
-});
-
-// Adding a click event listener to all elements with a class of "movie-btn"
-$(document).on("click", ".movie-btn", displayMovieInfo);
-
-// Calling the renderButtons function to display the intial buttons
-renderButtons();
