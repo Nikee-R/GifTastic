@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Giftastic | App</title>
   <!-- Links -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/minty/bootstrap.min.css" rel="stylesheet" integrity="sha384-4eGtnTOp6je5m6l1Zcp2WUGR9Y7kJZuAiD3Pk2GAW3uNRgHQSIqcrcAxBipzlbWP" crossorigin="anonymous">
   <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js'>
   <link rel='stylesheet' type='text/css' href='assets/css/style.css'>
@@ -12,41 +13,40 @@
 
 <body>
   <div class='container'>
-    <div class='jumbotron'>
-      <h1>GifTastic App</h1>
+
+    <h1>GifTastic App</h1>
+    
       <!-- Buttons -->
       <div class='container'>
         <div class='row'>
-          <div class='col-sm-2'>
-            <div id='buttons'>
-              <button type="button" class="btn btn-outline-secondary">Kitties</button>
-
+            <div class='buttons'>
+              <br>
+              <br>
             </div>
           </div>
-        </div>
       </div>
       <!-- Search Form to find gifs on Giphy. -->
         <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search">
+          <label for="topics"></label>
+
+          <input class="form-control mr-sm-2" type="topic" id=topics placeholder="Search">
+          <br>
+          <br>
           <button class="btn btn-secondary my-2 my-sm-0" type="submit">Add</button>
         </form>
       <!-- Where the gifs will be displayed. -->
       <div class='container'>
         <div class='row'>
-          <div class='col-sm-2'>
-            <div id='gifs'>
+          <div id='gifs'>
 
-            </div>
-          </div>
           </div>
         </div>
-    </div>
-</div>
+      </div>
+  </div>
 </body>
 
 <footer>
   <!-- Links for Javascript. -->
   <script src="assets/javascript/app.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</footer>
+  </footer>
 </html>

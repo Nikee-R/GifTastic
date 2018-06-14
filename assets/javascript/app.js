@@ -1,40 +1,60 @@
 // Initial array of gifs
-var animals = ["Otters", "Kitties", "Bunnies"];
+var topics = ["Animals", "Video Games", "Tea", "Electronics", "Plants", "Art", "Anime"];
+$(document).ready(function() {
+
+    // Adds buttons.
+     function renderButtons() {
+
+        $('.buttons').empty();
+        for (var i = 0; i < topics.length; i++ ) {
+            
+            // Adds new buttons for each item in array.
+            var button = $('<button>');
+            // Adds class to button.
+            button.addClass('btn btn-secondary my-2 my-sm-0');
+            // Adds a data attribute.
+            button.data('name', topics[i]);
+            // Adds the text to the buttons.
+            button.text(topics[i]);
+            // Adds a button to the button area.
+            $('.buttons').append(button);
+        }
+        console.log(renderButtons);
+    }
 
     // Displays gifs on page.
     function displayGifs() {
 
-        var gif = $(this).attr("#gif");
-        console.log('Here are the gifs for ' + gif);
+        var name = $(this).data("name");
+        console.log('Here are the gifs for ' + name);
 
         // Link to API.
-        var queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + gif + '&api_key=RcsY3z3u9rM2wVu92IGscG0ozY3GDZJl';
+        var queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + name + '&api_key=RcsY3z3u9rM2wVu92IGscG0ozY3GDZJl&limit=10';
 
         // AJAX call.
         $.ajax({
         url: queryURL,
         method: "GET"
         }).then(function(response) {
-            console.log('Retrieving gifs for' + gif);
+            console.log('Retrieving gifs for' + name);
 
-            // Creating a div to hold the gifs.
             var data = response.data;
             $('#gifs').empty();
 
             var row = $("<div class='row'>");
 
-            for (var dataIndex = 0; dataIndex < data.length; dataIndex++) {
+            for (var i = 0; i < data.length; i++) {
 
-                if (dataIndex[i].rating !== 'r' && dataIndex[i].rating !== 'pg-13') {
-                    var giphy = dataIndex[i].images.fixed_height.url;
-                    var still = dataIndex[i].images.fixed_height_still.url;
+                if (data[i].rating !== 'r' && data[i].rating !== 'pg-13') {
+                    var giphy = data[i].images.fixed_height.url;
+                    var still = data[i].images.fixed_height_still.url;
 
                     var giphyImg = $("<img class= 'giphy'>");
                     giphyImg.data('still', still);
                     giphyImg.data('animate', giphy);
                     giphyImg.data('state', 'animate');
                     giphyImg.attr('src', giphy);
-                    var imgBox = $("<div class= 'imgBox col-sm-2'>");
+                    var imgBox = $("<div class= 'imgBox col-lg-10'>");
                     imgBox.append(giphyImg);
                     if (i % 2 == 0) {
                         row = $("<div class= 'row'>");
@@ -50,28 +70,25 @@ var animals = ["Otters", "Kitties", "Bunnies"];
             }, 1000);
 
             console.log(response);
+
         });
     }
 
-        // Adds buttons.
-        function renderButtons() {
-            console.log('Rendering buttons.');
-    
-            $('#buttons').empty();
-            for (var animalsIndex = 0; animalsIndex < animals.length; animalsIndex++ ) {
-                
-                // Adds new buttons for each item in array.
-                var button = $('<button>');
-                button.addClass('gif');
-                button.data('name', animals[animalsIndex]);
-    
-                // Adds a button to the button area.
-                $('#buttons').append(button);
-            }
-            
-            console.log('Rendering buttons.')
-        }
+    $('.btn btn-secondary my-2 my-sm-0').click(function(event) {
+        event.preventDefault();
+        var name = $('#topics')
+        .val()
+        .trim();
 
+        if (name != "") {
+            console.log('A new button will be added' + name);
+            topics.push(name);
+            $('#topics').val('');
+            renderButtons();
+        }
+    });
+
+// This function changes the gifs from still to animate and vice-versa.
 function changeState() {
     console.log('Changing state.')
     var state = $(this).data('state');
@@ -84,3 +101,11 @@ function changeState() {
     }
 }
 
+// Adds a click event.
+$(document).on('click', '.buttons', '.btn btn-secondary my-2 my-sm-0', displayGifs);
+$(document).on('click', '.btn btn-secondary my-2 my-sm-0', displayGifs);
+$(document).on('click', ".giphy", changeState);
+
+// Calls the renderButtons function to display initial buttons.
+renderButtons();
+});
